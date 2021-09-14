@@ -12,21 +12,32 @@ public class exercise {
         // create new scanner
         Scanner input = new Scanner(System.in);
 
+        // init tax variable
+        double tax = 0.0;
+
         // record values
-        System.out.print("Enter your weight (lbs): ");
-        float weight = input.nextFloat();
-        System.out.print("Enter your height (in.): ");
-        float height = input.nextFloat();
+        System.out.print("What is the order amount? ");
+        int order_amount = input.nextInt();
+        System.out.print("What state do you live in? ");
+        String state = input.next();
 
-        // calculate BMI
-        float bmi = (weight / (height * height)) * 703;
+        if (state.equals("Wisconsin")) {
+            // ask for county
+            System.out.print("What county do you live in? ");
+            String county = input.next();
 
-        // output based on bmi
-        if (bmi >= 18.5 && bmi <= 25)
-            System.out.print("Your BMI is " + String.format("%.1f", bmi) + ".\nYou are within the ideal weight range.");
-        else if (bmi > 25)
-            System.out.print("Your BMI is " + String.format("%.1f", bmi) + ".\nYou are overweight. You should see your doctor.");
-        else if (bmi < 18.5)
-            System.out.print("Your BMI is " + String.format("%.1f", bmi) + ".\nYou are underweight. You should see your doctor.");
+            // calculate tax based on county
+            if (county.equals("Eau Claire"))
+                tax = (order_amount * 0.055);
+            else if (county.equals("Dunn"))
+                tax = (order_amount * 0.054);
+            else
+                tax = (order_amount * 0.05);
+        }
+        else if (state.equals("Illinois"))
+            tax = (order_amount * 0.08);
+
+        // output multistate sales tax
+        System.out.print("The tax is $" + String.format("%.2f", tax) + "\nThe total is $" + String.format("%.2f", (order_amount + tax)) + ".");
     }
 }
